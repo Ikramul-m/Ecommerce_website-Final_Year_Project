@@ -35,7 +35,7 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true,
       },
-      
+
       url: {
         type: String,
         required: true,
@@ -43,5 +43,47 @@ const productSchema = mongoose.Schema({
     },
   ],
 
+  category: {
+    type: String,
+    required: [true, "Please enter product category"]
+  },
+
+  Stock: {
+    type: Number,
+    required: [true, "Please enter product stock"],
+    maxLength: [4, "Stock cannot exceed 4 characters"]
+  },
+
+  numberOfReviews: {
+    type: Number,
+    default: 0
+  },
+
+  reviews: [
+    {
+        name: {
+            type: String,
+            required: true,
+        },
+
+        rating: {
+            type: Number,
+            required: true
+        },
+
+        comment: {
+            type: String,
+            required: true
+        }
+    }
+  ],
+
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+
 
 });
+
+
