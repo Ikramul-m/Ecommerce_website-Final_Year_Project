@@ -41,36 +41,24 @@ exports.getAllProducts = async (req, res) => {
   });
 };
 
-
-
-
 // Get Product details
 
 exports.getProductDetails = async (req, res, next) => {
   try {
-    const productId = req.params.id;
+    const product = await Product.findById(req.params.id);
 
-    if (!mongoose.Types.ObjectId.isValid(productId)) {
-      return next(new ErrorHandler("Invalid product ID", 400));
-    }
-
-    const product = await Product.findById(productId);
     if (!product) {
-      return next(new ErrorHandler("Product not found", 404));
+      return next(new ErrorHander("Product not found", 404));
     }
 
-    res.json({
+    res.status(202).json({
       success: true,
       product,
     });
   } catch (error) {
-    next(error);
+    next(ErrorHander);
   }
 };
-
-
-
-
 
 // Update product -- Admin
 
